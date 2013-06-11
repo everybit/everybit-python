@@ -1,6 +1,5 @@
 import urllib
 import urllib2
-import json
 
 from configuration import *
 
@@ -20,45 +19,40 @@ class APIConnectionError(EverybitError):
   pass
 
 
-## Request Helpers
+class EverybitRequest(urllib2.Request):
+    """
+    Override the urllib2 Request so we can easily set the method.
+    """
+
+    def __init__(self, url, data=None, headers={},
+                 origin_req_host=None, unverifiable=False, method=None):
+       urllib2.Request.__init__(self, url, data, headers, origin_req_host, unverifiable)
+       self.method = method
+
+    def get_method(self):
+        if self.method:
+            return self.method
+
+        return urllib2.Request.get_method(self)
+
+
 def make_request(url, http_verb='GET', json_data={}):
+    """
+    Convenience function for building requests
+    """
 
     try:
-        if http_verb=='POST':
-            return post(url, json_data)
-        else:
-            data = json.dumps(json_data)
-        print "Calling: %s with: %s and data: %s" % (url, http_verb, data)
-        req = urllib2.Request(
+        opener = urllib2.build_opener(urllib2.HTTPHandler)
+        req = EverybitRequest(
             url,
-            data,
-            {
+            data=urllib.urlencode(json_data),
+            headers={
                 'x-apikey': api_key
-            }
+            },
+            method=http_verb,
         )
-        req.get_method = lambda: http_verb
-        f = urllib2.urlopen(req)
-        response = f.read()
-        f.close()
-        print response
-        return response
+        return opener.open(req).read()
     except Exception, e:
-        print "Exception making request: %s" % e
-        return None
-
-def post(url, json_data):
-    try:
-        params = urllib.urlencode(json_data)
-        params = json.dumps(json_data)
-        response = urllib2.urlopen(
-            url,
-            params,
-            {
-                'x-apikey': api_key
-            }
+        raise APIConnectionError(
+            message="It appears we were unable to communicate with the Everybit API.  Is your API key set?  Are you passing in correctly formatted data? %s" % e
         )
-        response = response.read()
-        print response
-        return response
-    except Exception, e:
-        print "Exception making request: %s" % e
