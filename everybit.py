@@ -27,20 +27,20 @@ class EverybitAPI():
             url = '%s/%s' % (url, uuid)
         return make_request(url)
 
-    def create_video(self, json_data=None):
+    def create_video(self, data=None):
         """
         Create a new video.
 
         Will throw an APIError if there is no json_data present.
         """
 
-        if not json_data:
-            raise APIError("You must provide a uuid to update a video.")
+        if not data:
+            raise APIError("You must provide a data to create a video.")
 
         url = '%s/v1/videos' % api_base_url
-        return make_request(url, 'POST', json_data)
+        return make_request(url, 'POST', data)
 
-    def update_video(self, uuid=None, json_data=None):
+    def update_video(self, uuid=None, data=None):
         """
         Update an existing video.
 
@@ -49,12 +49,12 @@ class EverybitAPI():
 
         if not uuid:
             raise APIError("You must provide a uuid to update a video.")
-        if not json_data:
-            raise APIError("You must provide a uuid to update a video.")
+        if not data:
+            raise APIError("You must provide a data to update a video.")
 
         url = '%s/v1/videos' % api_base_url
         url = '%s/%s' % (url, uuid)
-        return make_request(url, 'PUT', json_data)
+        return make_request(url, 'PUT', data)
 
     def get_video_status(self, uuid=None):
         """

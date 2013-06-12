@@ -1,5 +1,6 @@
 import urllib
 import urllib2
+import json
 
 from configuration import *
 
@@ -36,7 +37,7 @@ class EverybitRequest(urllib2.Request):
         return urllib2.Request.get_method(self)
 
 
-def make_request(url, http_verb='GET', json_data={}):
+def make_request(url, method='GET', data={}):
     """
     Convenience function for building requests
     """
@@ -45,11 +46,12 @@ def make_request(url, http_verb='GET', json_data={}):
         opener = urllib2.build_opener(urllib2.HTTPHandler)
         req = EverybitRequest(
             url,
-            data=urllib.urlencode(json_data),
+            data=json.dumps(data),
             headers={
+                'User-Agent': api_user_agent,
                 'x-apikey': api_key
             },
-            method=http_verb,
+            method=method,
         )
         return opener.open(req).read()
     except Exception, e:
