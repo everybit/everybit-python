@@ -1,4 +1,4 @@
 everybit-python
 ===============
 
-Everybit Python API Wrapper
+Everybit API Python Wrapper

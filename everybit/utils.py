@@ -43,6 +43,7 @@ def make_request(url, method='GET', data={}):
     """
 
     try:
+        print api_key
         opener = urllib2.build_opener(urllib2.HTTPHandler)
         req = EverybitRequest(
             url,

@@ -3,7 +3,7 @@
 import json
 import time
 
-from everybit import *
+from everybit.api import *
 
 
 Everybit = EverybitAPI()
