@@ -58,4 +58,4 @@ data = {
     'tags': ["terms", "describing", "video"], 'lat': 42.8765, 'lon': 41.7657,
     'visibility': 'public'
 }
-print Everybit.update_video(test_uuid, data)
+print Everybit.update_video(uuid, data)
