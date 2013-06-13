@@ -9,8 +9,6 @@ Various Ways of Installing
 1. Using easy_install
  * easy_install everybit-python
 
- or
-
 2. Grab from git and run setup
  * git clone https://github.com/everybit/everybit-python.git
  * cd everybit-python
@@ -20,16 +18,13 @@ Various Ways of Installing
  * git clone https://github.com/everybit/everybit-python.git
 
 Examples
-========
+--------
 
-'''
-from everybit.api import *
+    from everybit.api import *
 
 
-Everybit = EverybitAPI()
+    Everybit = EverybitAPI()
+    print Everybit.get_account_info()
 
-#Get user account info
-print Everybit.get_account_info()
-'''
 
 For further examples, see example.py.
