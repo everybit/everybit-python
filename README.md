@@ -20,6 +20,9 @@ Various Ways of Installing
 Examples
 --------
 
+    #Don't forget to modify everybit/configuration.py with your API key
+    #which is obtained from your account page in dashboard.everybit.co
+
     from everybit.api import *
 
 
