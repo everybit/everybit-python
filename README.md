@@ -18,3 +18,18 @@ Various Ways of Installing
 
 3. Grab from git and throw it in your project
  * git clone https://github.com/everybit/everybit-python.git
+
+Examples
+========
+
+'''
+from everybit.api import *
+
+
+Everybit = EverybitAPI()
+
+#Get user account info
+print Everybit.get_account_info()
+'''
+
+For further examples, see example.py.
